@@ -1,7 +1,7 @@
 package me.davipccunha.naturalspawners;
 
 import lombok.Getter;
-import me.davipccunha.naturalspawners.command.TestCommand;
+import me.davipccunha.naturalspawners.command.SpawnerCommand;
 import me.davipccunha.naturalspawners.listener.BlockBreakListener;
 import me.davipccunha.naturalspawners.listener.BlockPlaceListener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -32,6 +32,6 @@ public class NaturalSpawnersPlugin extends JavaPlugin {
     }
 
     private void registerCommands() {
-        this.getCommand("test").setExecutor(new TestCommand());
+        this.getCommand("spawner").setExecutor(new SpawnerCommand());
     }
 }

@@ -47,9 +47,9 @@ bukkit {
     author = "Davi C"
 
     commands {
-        register("test") {
-            description = "Terrains plugin command."
-            permission = "terrains.command"
+        register("spawner") {
+            description = "Gives spawners to a player."
+            permission = "spawners.give"
         }
     }
 }

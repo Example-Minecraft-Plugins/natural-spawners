@@ -32,15 +32,15 @@ public class BlockBreakListener implements Listener {
 
         ItemStack spawner = event.getBlock().getState().getData().toItemStack(1);
 
-        String creature = ((CreatureSpawner) event.getBlock().getState()).getCreatureTypeName();
+        String entity = ((CreatureSpawner) event.getBlock().getState()).getSpawnedType().toString();
 
         final Map<String, String> tags = new HashMap<>() {{
-            put("entity", creature);
+            put("entity", entity);
         }};
 
         ItemStack spawnerNBT = NBTHandler.addNBT(spawner, tags);
         ItemMeta spawnerMeta = spawnerNBT.getItemMeta();
-        spawnerMeta.setDisplayName("§fSpawner de " + EntityName.valueOf(((CreatureSpawner) event.getBlock().getState()).getSpawnedType()));
+        spawnerMeta.setDisplayName("§fSpawner de " + EntityName.valueOf(entity));
         spawnerNBT.setItemMeta(spawnerMeta);
 
         if (!player.getGameMode().equals(GameMode.CREATIVE)) {

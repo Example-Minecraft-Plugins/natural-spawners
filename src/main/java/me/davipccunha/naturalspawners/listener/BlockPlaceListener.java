@@ -2,6 +2,7 @@ package me.davipccunha.naturalspawners.listener;
 
 import me.davipccunha.utils.item.NBTHandler;
 import org.bukkit.block.CreatureSpawner;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -27,7 +28,7 @@ public class BlockPlaceListener implements Listener {
 
         CreatureSpawner creatureSpawner = (CreatureSpawner) event.getBlock().getState();
 
-        creatureSpawner.setCreatureTypeByName(entityName);
+        creatureSpawner.setSpawnedType(EntityType.valueOf(entityName));
         creatureSpawner.update();
     }
 }
