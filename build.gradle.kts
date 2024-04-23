@@ -21,7 +21,7 @@ dependencies {
     compileOnly("net.md-5:bungeecord-chat:1.8-SNAPSHOT")
     compileOnly("org.projectlombok:lombok:1.18.28")
     annotationProcessor("org.projectlombok:lombok:1.18.28")
-    implementation(fileTree("D:\\Minecraft Dev\\artifacts\\") { include("bukkit-utils.jar") })
+    compileOnly(fileTree("D:\\Local Minecraft Server\\plugins") { include("bukkit-utils.jar") })
 }
 
 tasks.withType<JavaCompile> {
@@ -43,6 +43,7 @@ bukkit {
     apiVersion = "1.8"
     version = "${project.version}"
     main = "me.davipccunha.naturalspawners.NaturalSpawnersPlugin"
+    depend = listOf("bukkit-utils")
     description = "Spawners plugin for people to farm by killing mobs."
     author = "Davi C"
 
