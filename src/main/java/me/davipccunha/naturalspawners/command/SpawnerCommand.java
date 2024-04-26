@@ -50,7 +50,7 @@ public class SpawnerCommand implements CommandExecutor {
 
         player.getInventory().addItem(spawner);
 
-        sender.sendMessage(String.format("§aSpawner de %s §f(x%d) §adado com sucesso para §f%s§a.", EntityName.valueOf(type), amount, nick));
+        sender.sendMessage(String.format("§aSpawner de §f%s (x%d) §adado com sucesso para §f%s§a.", EntityName.valueOf(type), amount, nick));
         return true;
     }
 

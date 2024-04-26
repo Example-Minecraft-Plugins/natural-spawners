@@ -44,7 +44,7 @@ bukkit {
     version = "${project.version}"
     main = "me.davipccunha.naturalspawners.NaturalSpawnersPlugin"
     depend = listOf("bukkit-utils")
-    description = "Spawners plugin for people to farm by killing mobs."
+    description = "Spawners plugin to allow players to break and replace mob spawners."
     author = "Davi C"
 
     commands {

@@ -24,6 +24,7 @@ public class BlockPlaceListener implements Listener {
         if (entityName == null) {
             player.sendMessage("§cOcorreu um erro. Contate nossa equipe de suporte.");
             event.setCancelled(true);
+            return;
         }
 
         CreatureSpawner creatureSpawner = (CreatureSpawner) event.getBlock().getState();
