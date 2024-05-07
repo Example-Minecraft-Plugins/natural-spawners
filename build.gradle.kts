@@ -49,8 +49,7 @@ bukkit {
 
     commands {
         register("spawner") {
-            description = "Gives spawners to a player."
-            permission = "spawners.give"
+            description = "Dá spawners a um player"
         }
     }
 }
