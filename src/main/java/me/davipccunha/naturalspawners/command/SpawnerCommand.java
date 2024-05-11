@@ -20,7 +20,7 @@ public class SpawnerCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        if (!sender.hasPermission("spawners.admin")) {
+        if (!sender.hasPermission("spawners.admin.give")) {
             sender.sendMessage("§cVocê não tem permissão para executar este comando.");
             return false;
         }
