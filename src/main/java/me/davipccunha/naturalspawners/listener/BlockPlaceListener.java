@@ -1,6 +1,7 @@
 package me.davipccunha.naturalspawners.listener;
 
 import me.davipccunha.utils.item.NBTHandler;
+import me.davipccunha.utils.messages.ErrorMessages;
 import org.bukkit.block.CreatureSpawner;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -10,7 +11,8 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class BlockPlaceListener implements Listener {
-    @EventHandler
+
+    @EventHandler(ignoreCancelled = true)
     public void onBlockPlace(BlockPlaceEvent event) {
         if (!(event.getBlock().getState() instanceof CreatureSpawner)) return;
 
@@ -22,7 +24,7 @@ public class BlockPlaceListener implements Listener {
         String entityName = NBTHandler.getNBT(spawner, "entity");
 
         if (entityName == null) {
-            player.sendMessage("§cOcorreu um erro. Contate nossa equipe de suporte.");
+            player.sendMessage(ErrorMessages.INTERNAL_ERROR.getMessage());
             event.setCancelled(true);
             return;
         }

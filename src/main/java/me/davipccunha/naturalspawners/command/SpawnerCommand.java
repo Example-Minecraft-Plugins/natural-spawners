@@ -3,6 +3,7 @@ package me.davipccunha.naturalspawners.command;
 import me.davipccunha.utils.entity.EntityName;
 import me.davipccunha.utils.inventory.InventoryUtil;
 import me.davipccunha.utils.item.NBTHandler;
+import me.davipccunha.utils.messages.ErrorMessages;
 import org.apache.commons.lang.math.NumberUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -14,24 +15,24 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.HashMap;
+import java.util.Map;
 
 public class SpawnerCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
         if (!sender.hasPermission("spawners.admin.give")) {
-            sender.sendMessage("§cVocê não tem permissão para executar este comando.");
+            sender.sendMessage(ErrorMessages.NO_PERMISSION.getMessage());
             return false;
         }
 
         if (args.length != 4 || !args[0].equalsIgnoreCase("give"))
-            return invalidate(sender, "§cUso correto: /spawner give <nick> <tipo> <quantidade>");
+            return invalidate(sender, "§cUso: /spawner give <nick> <tipo> <quantidade>");
 
-        final String nick = args[1];
-        final Player player = Bukkit.getPlayer(nick);
+        final String name = args[1];
+        final Player player = Bukkit.getPlayer(name);
         if (player == null)
-            return invalidate(sender, "§cJogador não encontrado.");
+            return invalidate(sender, ErrorMessages.PLAYER_NOT_FOUND.getMessage());
 
         final String type = args[2].toUpperCase();
 
@@ -44,18 +45,18 @@ public class SpawnerCommand implements CommandExecutor {
 
         int amount = NumberUtils.toInt(args[3]);
         if (amount <= 0)
-            return invalidate(sender, "§cQuantidade inválida.");
+            return invalidate(sender, ErrorMessages.INVALID_AMOUNT.getMessage());
         if (amount > 64)
             return invalidate(sender, "§cA quantidade máxima é 64.");
 
-        ItemStack spawner = this.createSpawner(entityType.toString(), amount);
+        final ItemStack spawner = this.createSpawner(entityType.toString(), amount);
         int missingAmount = InventoryUtil.getMissingAmount(player.getInventory(), spawner);
         if (missingAmount < amount)
-            return invalidate(sender, "§cO jogador não tem espaço suficiente no inventário.");
+            return invalidate(sender, ErrorMessages.INVENTORY_FULL.getMessage());
 
         player.getInventory().addItem(spawner);
 
-        sender.sendMessage(String.format("§aSpawner de §f%s (x%d) §adado com sucesso para §f%s§a.", EntityName.valueOf(type), amount, nick));
+        sender.sendMessage(String.format("§aSpawner de §f%s (x%d) §adado com sucesso para §f%s§a.", EntityName.valueOf(type), amount, player.getName()));
         return true;
     }
 
@@ -70,8 +71,6 @@ public class SpawnerCommand implements CommandExecutor {
         spawnerMeta.setDisplayName("§fSpawner de " + EntityName.valueOf(type));
         spawner.setItemMeta(spawnerMeta);
 
-        return NBTHandler.addNBT(spawner, new HashMap<>() {{
-            put("entity", type);
-        }});
+        return NBTHandler.addNBT(spawner, Map.of("entity", type));
     }
 }
